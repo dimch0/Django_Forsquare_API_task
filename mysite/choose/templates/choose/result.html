@@ -1,0 +1,14 @@
+{% extends "choose/header.html" %}
+{% block content %}
+<h3><font color="white" style="margin-left: 42%">Selected venues:</font></h3>
+
+    {% for v in selected_venue_list %}
+        <center><b>{{ v }}</b>
+        <br>
+    {% endfor %}
+        <br>
+        <a href="{% url 'choose:index' %}"><font color="white" size="4">Select again?</font></a>
+        </center>
+{% endblock %}
+
+/home/dzhrt/PycharmProjects/untitled/pyth/you_local_2

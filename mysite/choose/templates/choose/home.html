@@ -1,0 +1,54 @@
+{% extends "choose/header.html" %}
+{% block content %}
+<h3  align="center"><font color="white">Showing venues in radius of {{ FS_RADIUS }}km with coordinates: {{ FS_COORDINATES }}</font></h3>
+<h4  align="center"><font color="white">Please select as many as necessary:</font></h4>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'choose:result' %}" method="post">
+    {% csrf_token %}
+
+        <style>
+        table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+        }
+        th, td {
+
+            max-width:90%;
+            white-space:nowrap;
+            padding: 3px;
+        }
+        th {
+            text-align: center;
+            color: white;
+        }
+        </style>
+
+
+        <table align="center">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Category</th>
+                <th>Distance</th>
+            </tr>
+            {% for venue in venue_list %}
+            <tr>
+
+    <td width="60" align="center"><input type="checkbox" name="check_venue" id="venue{{ forloop.counter }}" value={{venue.id}}/></td>
+    <td align="left"><label for="venue{{ forloop.counter }}"><b>{{ venue.name }}</b></label><br /></td>
+    <td align="left"><label for="venue{{ forloop.counter }}"><b>{{ venue.address }}</b></label><br /></td>
+    <td align="left"><label for="venue{{ forloop.counter }}"><b>{{ venue.category }}</b></label><br /></td>
+    <td align="center" width="100"><label for="venue{{ forloop.counter }}"><b>{{ venue.distance }}m</b></label><br /></td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <input type="submit" style="margin-left: 50%;" name="submit" value="Submit" />
+    </form>
+{% endblock %}
+
+
